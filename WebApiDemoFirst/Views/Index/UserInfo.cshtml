@@ -42,20 +42,31 @@
             })
         })
 
-        ////delete
-        //$("Delete").click(function () {
+        ////post
+        //$("#Insert").click(function () {
         //    var id = $("#textbox1").val();
+        //    var name = $("#textbox2").val();
+        //    var phone1 = $("#textbox3").val();
+        //    var address1 = $("#textbox4").val();
+
         //    $.ajax({
-        //        type: "DELETE",
+        //        type: "POST",
         //        contentType: "application/jeson;charset=utf-8",
-        //        url: "/api/UserInfoes/" + $("#id").val,
-        //        data: JSON.stringify({
-        //            name: $("#id").val,
+        //        url: "/api/UserInfoes/",
+        //        //cache: false,
+                    
+        //       data: JSON.stringify({
+
+        //           id=$("#textbox1").val(),
+        //            name: $("#textbox2").val(),
+        //            phone=$("#textbox3").val(),
+        //            address=$("#textbox4").val(),
         //        }),
         //        dataType: "JSON",
         //        success: function (data) {
         //            $("#tbl").find("tr:gt(0)").remove();
 
+        //            $("#tbl").css("display", "none");
         //            $.getJSON("/api/UserInfoes/", function (data) {
         //                $("#tbl").css("display", "block");
         //                $.each(data, function (key, val) {
@@ -63,19 +74,52 @@
         //                })
         //            })
         //        }
-        //    });
+
+        //    })
 
         //})
 
-
-
-        ////Delete
+        ////delete
         $("#Delete").click(function () {
             var id = $("#textbox1").val();
 
             $.ajax({
-
                 type: "DELETE",
+                //contentType: "application/jeson;charset=utf-8",
+                contentType: "application/json;charset=utf-8",
+                url: "/api/UserInfoes/" + $("#textbox1").val(),
+                data: JSON.stringify({
+                    name: $("#textbox1").val(),
+                }),
+
+                dataType: "JSON",
+                success: function (data) {
+                    $("#tbl").find("tr:gt(0)").remove();
+
+                    $("#tbl").css("display", "none");
+                    $.getJSON("/api/UserInfoes/", function (data) {
+                        $("#tbl").css("display", "block");
+                        $.each(data, function (key, val) {
+                            $("<tr><td>" + val.id + "</td><td>" + val.name + "</td><td>" + val.phone + "</td><td>" + val.address + "</td></tr>").appendTo($("#tbl"));
+                        })
+                    })
+                }
+            });
+
+        })
+
+         //Update 
+        $("#Update").click(function () {
+            var id = $("#textbox1").val();
+            //var name = $("#textbox2").val();
+            //var fname = $("#textbox3").val();
+            //var id = $("#textbox1").val();
+            var name = $("#textbox2").val();
+            var phone = $("#textbox3").val();
+            var address = $("#textbox4").val();
+            $.ajax({
+
+                type: "put",
 
                 contentType: "application/json;charset=utf-8",
 
@@ -84,10 +128,13 @@
                 data: JSON.stringify({
 
 
+                    id: $("#textbox1").val(),
+                    name: $("#textbox2").val(),
+                    phone: $("#textbox3").val(),
+                    address: $("#textbox4").val(),
 
-                    name: $("#textbox1").val(),
 
-
+                    //fname: $("#fname").val(),
 
 
 
@@ -101,9 +148,8 @@
                     $.getJSON("/api/UserInfoes/", function (data) {
                         $("#tab").css("display", "block");
                         $.each(data, function (key, val) {
-                            // $("<tr><td>" + val.id + "</td><td>" + val.name + "</td><td>" + val.fname + "</td></tr>").appendTo($("#tab1"));
+                          //  $("<tr><td>" + val.id + "</td><td>" + val.name + "</td><td>" + val.fname + "</td></tr>").appendTo($("#tab1"));
                             $("<tr><td>" + val.id + "</td><td>" + val.name + "</td><td>" + val.phone + "</td><td>" + val.address + "</td></tr>").appendTo($("#tbl"));
-
 
                         })
 
@@ -117,7 +163,8 @@
 
         })
 
-    });
+    })
+
 
 </script>
 
